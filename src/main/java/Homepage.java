@@ -1,7 +1,4 @@
-import controller.MeasurementsController;
-import controller.SQLController;
-import controller.ScannerController;
-import controller.UserController;
+import controller.*;
 import model.User;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,7 +9,7 @@ import java.util.Scanner;
  a)jesli poprawne dane to na sztywno ustawia się id usera(user_id)
  b)jesli niepoprawne dane to sout "niepoprawne dane. czy chcesz spróbowac jeszce raz? t/n" lu od razu zakonczyc program(ewnetualnie np
  po 3. probach :))
- c) admin logowanie np na uzytkownika admin admin123 ;)
+ c) admin poprzedzone logowaniem np
 
  flow a: wtedy wyswietlamy panel usera, gdzie na sztywno do kazdej metody db wstawiamy user_id naszego usera zalogwanego:)):
   -> można wyswietlic swoje dane/wymiary(view) -> albo modyfikacja istniejacej metody, albo druga wersja
@@ -31,36 +28,38 @@ import java.util.Scanner;
 
 class Homepage {
     private  UserController userController;
+    private AdminController adminController;
     private static MeasurementsController measurementsController;
 
     public static void main(String[] args) {
             while (true) {
                 String dataBaseName = "weighttrackdb";
                 try (Connection conn = SQLController.getConnection(dataBaseName)) {
-                    User user = new User();
                     Scanner scan = new Scanner(System.in);
                     String option;
                     while (true) {
                         System.out.println(
-                                "|Wybierz jedną z opcji:\n"
-                                        + "|  panel - przejdź do panelu użytkownika\n"
-                                        + "|  wymiary - przejdź do zarządzania wymiarami\n"
-                                        + "|  quit - zakończ");
+                                "|Witaj w konsolowej aplikacji Weight Tracker!\n"
+                                        + "|  Wybierz, w jaki sposób chcesz korzystać z naszego programu:\n"
+                                        + "|  1 - zaloguj się do swojego konta\n"
+                                        + "|  2 - zarządzaj bazą jako administrator\n"
+                                        + "|  q - zakończ działanie programu");
                         option = scan.next();
                         switch (option) {
-                            case "panel":
-                                UserController.userPanel();
+                            case "1":
+                                //todo wywolac logowanie klienta
                                 break;
-                                case "wymiary":
-                                    MeasurementsController.measurementsPanel();
+                            case "2":
+                                AdminController.adminMenu();
                                 break;
-                                case "quit":
-                                    System.out.println("Program zakończył działanie.");
-                                    System.exit(0);
-                                default:
-                                    System.out.print("Nie wpisałeś poprawnej odpowiedzi. ");
-                                    break;
-                            }
+                            case "q":
+                                System.out.println("Program zakończył działanie.");
+                                System.exit(0);
+                            default:
+                                System.out.print("Nie wpisałeś poprawnej odpowiedzi. ");
+                                break;
+                        }
+
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

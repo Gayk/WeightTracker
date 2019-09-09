@@ -11,10 +11,11 @@ public class MeasurementsController {
     private static String dataBaseName = "weighttrackdb";
 
     public static void main(String[] args){
-        measurementsPanel();
+
+        //to do
     }
 
-    public static void measurementsPanel() {
+    public static void measurementsAdminPanel() {
         while (true) {
             try (Connection conn = SQLController.getConnection(dataBaseName)) {
                 Scanner scan = new Scanner(System.in);
@@ -24,6 +25,7 @@ public class MeasurementsController {
                         + "add - dodaj nowe wymiary\n"
                         + "view - przeglądanie wymiarów użytkownika\n"
                         + "delete - usuwanie wymiarów z danego dnia\n"
+                        //TODO dodac usuwanie wymiarow danego uzytkownika
                         + "quit - zakończenie programu");
                 option = scan.next();
                 switch (option) {
