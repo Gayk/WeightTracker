@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class MeasurementsController {
     private static String dataBaseName = "weighttrackdb";
 
